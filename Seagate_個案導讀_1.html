@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seagate 科技公司收購案 · 個案導讀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+:root{
+  --navy:#000e2f;
+  --navy-90:#0a1a3f;
+  --navy-70:#243456;
+  --gold:#f4b702;
+  --gold-soft:#f9d878;
+  --paper:#f7f5f0;
+  --white:#ffffff;
+  --ink:#1b2436;
+  --mute:#6b7488;
+  --line:rgba(0,14,47,.12);
+  --serif-tc:'Noto Serif TC',serif;
+  --serif-en:'Cormorant Garamond','Playfair Display',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--serif-tc);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 32px}
+.en{font-family:var(--serif-en)}
+
+/* ---------- Progress ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0;z-index:100;transition:width .1s}
+
+/* ---------- Nav ---------- */
+.tocnav{
+  position:fixed;top:0;right:0;height:100%;width:250px;
+  background:var(--navy);color:#fff;padding:80px 26px 40px;
+  transform:translateX(100%);transition:transform .35s;z-index:90;overflow-y:auto;
+}
+.tocnav.open{transform:translateX(0)}
+.tocnav .t{font-family:var(--serif-en);letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-size:.72rem;margin-bottom:20px}
+.tocnav a{display:block;color:rgba(255,255,255,.72);text-decoration:none;padding:9px 0;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.08);transition:color .2s}
+.tocnav a:hover{color:var(--gold)}
+.tocnav a .n{font-family:var(--serif-en);color:var(--gold);margin-right:10px;font-size:.82rem}
+.menu-btn{
+  position:fixed;top:22px;right:22px;z-index:95;background:var(--navy);color:var(--gold);
+  border:1px solid var(--gold);border-radius:24px;padding:9px 18px;cursor:pointer;
+  font-family:var(--serif-en);letter-spacing:.14em;text-transform:uppercase;font-size:.74rem;
+}
+
+/* ---------- Cover ---------- */
+.cover{
+  background:var(--navy);color:var(--white);padding:104px 0 88px;
+  position:relative;overflow:hidden;
+}
+.cover::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 84% 16%,rgba(244,183,2,.15),transparent 46%),
+    radial-gradient(circle at 10% 90%,rgba(244,183,2,.06),transparent 40%);
+}
+.cover .wrap{position:relative;z-index:2}
+.eyebrow{font-family:var(--serif-en);letter-spacing:.42em;text-transform:uppercase;font-size:.78rem;color:var(--gold);font-weight:600}
+.cover h1{font-weight:900;font-size:3.1rem;line-height:1.22;margin:22px 0 6px;letter-spacing:.02em}
+.cover .sub-en{font-family:var(--serif-en);font-size:1.5rem;font-weight:500;color:var(--gold-soft);letter-spacing:.04em;margin-bottom:28px}
+.cover .lead{max-width:720px;color:rgba(255,255,255,.85);font-weight:300;font-size:1.08rem}
+.rule-gold{width:64px;height:3px;background:var(--gold);margin:32px 0 0;border-radius:2px}
+.meta-row{display:flex;flex-wrap:wrap;gap:38px;margin-top:42px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14)}
+.meta-row .item .k{font-family:var(--serif-en);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.meta-row .item .v{font-size:1.02rem;color:var(--white);margin-top:4px;font-weight:500}
+
+/* ---------- Sections ---------- */
+section{padding:78px 0}
+section:nth-of-type(even){background:var(--white)}
+.sec-head{margin-bottom:40px;max-width:800px}
+.sec-num{font-family:var(--serif-en);font-size:.92rem;letter-spacing:.3em;color:var(--gold);font-weight:600;text-transform:uppercase}
+.sec-head h2{font-weight:700;font-size:2.1rem;color:var(--navy);margin:12px 0 12px;letter-spacing:.02em;line-height:1.32}
+.sec-head .subt{font-family:var(--serif-en);font-size:1.2rem;color:var(--navy-70);font-weight:500;letter-spacing:.03em}
+
+p.body{font-weight:300;font-size:1.06rem;margin-bottom:20px;color:var(--ink)}
+p.body strong{font-weight:600;color:var(--navy)}
+.hl{color:var(--navy);font-weight:600;box-shadow:inset 0 -.5em 0 rgba(244,183,2,.28)}
+
+/* callout */
+.callout{
+  border-left:4px solid var(--gold);background:var(--paper);
+  padding:24px 30px;border-radius:0 12px 12px 0;margin:28px 0;
+}
+section:nth-of-type(even) .callout{background:#faf8f3}
+.callout .q{font-family:var(--serif-en);letter-spacing:.2em;text-transform:uppercase;font-size:.74rem;color:var(--gold);font-weight:600;margin-bottom:8px}
+.callout p{font-weight:400;color:var(--navy);font-size:1.05rem;margin:0}
+
+/* logic block */
+.logic{
+  background:var(--navy);color:#fff;border-radius:16px;padding:36px 40px;margin:32px 0;
+  position:relative;overflow:hidden;
+}
+.logic::after{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(244,183,2,.16),transparent 70%)}
+.logic .lbl{font-family:var(--serif-en);letter-spacing:.28em;text-transform:uppercase;font-size:.74rem;color:var(--gold);margin-bottom:14px}
+.logic h4{font-weight:700;font-size:1.25rem;margin-bottom:16px;letter-spacing:.02em;position:relative;z-index:2}
+.logic p{font-weight:300;color:rgba(255,255,255,.86);position:relative;z-index:2;margin-bottom:12px}
+.logic p:last-child{margin-bottom:0}
+.logic .em{color:var(--gold-soft);font-weight:500}
+
+/* two-stage flow */
+.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:32px 0}
+.stage{border:1px solid var(--line);border-radius:16px;background:var(--white);padding:30px 32px}
+.stage .badge{display:inline-block;font-family:var(--serif-en);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;color:var(--gold);border:1px solid var(--gold);border-radius:20px;padding:4px 14px;margin-bottom:16px}
+.stage h4{color:var(--navy);font-weight:700;font-size:1.2rem;margin-bottom:12px}
+.stage p{font-weight:300;font-size:.98rem;color:var(--ink);margin-bottom:10px}
+.stage .tag{font-family:var(--serif-en);font-weight:600;color:var(--navy);font-size:.95rem}
+.arrow{display:flex;align-items:center;justify-content:center;padding:0 20px;color:var(--gold);font-size:2rem;font-family:var(--serif-en)}
+
+/* market cards */
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:28px 0}
+.mkt{border:1px solid var(--line);border-radius:14px;background:var(--white);padding:28px 26px;box-shadow:0 10px 30px rgba(0,14,47,.04)}
+.mkt .h{font-weight:700;color:var(--navy);font-size:1.15rem;margin-bottom:4px}
+.mkt .h-en{font-family:var(--serif-en);color:var(--mute);font-size:.9rem;letter-spacing:.04em;margin-bottom:14px}
+.mkt .margin{font-family:var(--serif-en);font-size:1.9rem;font-weight:600;color:var(--gold);line-height:1}
+.mkt .margin small{font-size:.9rem;color:var(--mute);display:block;font-family:var(--serif-tc);margin-top:4px;font-weight:300}
+.mkt p{font-weight:300;font-size:.92rem;color:var(--ink);margin-top:14px;line-height:1.7}
+
+/* stat inline */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:30px 0}
+.stat{border-top:2px solid var(--gold);padding-top:14px}
+.stat .num{font-family:var(--serif-en);font-size:2rem;font-weight:600;color:var(--navy);line-height:1}
+.stat .cap{color:var(--mute);font-weight:300;font-size:.88rem;margin-top:6px}
+
+/* pros/cons */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:30px 0}
+.pc .col{border:1px solid var(--line);border-radius:14px;padding:28px 30px;background:var(--white)}
+.pc .col.pro{border-left:4px solid var(--gold)}
+.pc .col.con{border-left:4px solid var(--navy-70)}
+.pc .col .h{font-family:var(--serif-en);letter-spacing:.22em;text-transform:uppercase;font-size:.78rem;font-weight:600;margin-bottom:14px}
+.pc .col.pro .h{color:var(--navy)}
+.pc .col.con .h{color:var(--mute)}
+.pc ul{list-style:none}
+.pc li{padding:9px 0 9px 22px;position:relative;font-weight:300;font-size:.98rem;color:var(--ink);line-height:1.7}
+.pc li::before{content:"";position:absolute;left:0;top:16px;width:7px;height:7px;border-radius:50%}
+.pc .pro li::before{background:var(--gold)}
+.pc .con li::before{background:var(--navy-70)}
+
+/* decision list */
+.dec{margin:28px 0}
+.dec .item{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
+.dec .item:last-child{border-bottom:0}
+.dec .idx{font-family:var(--serif-en);font-size:1.7rem;font-weight:600;color:var(--gold);flex-shrink:0;width:48px;line-height:1.2}
+.dec .c h4{color:var(--navy);font-weight:600;font-size:1.15rem;margin-bottom:6px}
+.dec .c p{font-weight:300;font-size:1rem;color:var(--ink)}
+
+/* options grid */
+.opt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:28px 0}
+.opt{border:1px solid var(--line);border-radius:12px;padding:22px 26px;background:var(--white)}
+.opt .n{font-family:var(--serif-en);color:var(--gold);font-weight:600;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase}
+.opt h4{color:var(--navy);font-weight:600;font-size:1.08rem;margin:8px 0 6px}
+.opt p{font-weight:300;font-size:.95rem;color:var(--mute)}
+
+/* timeline */
+.tl{position:relative;margin:32px 0;padding-left:34px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl .ev{position:relative;padding:0 0 30px}
+.tl .ev:last-child{padding-bottom:0}
+.tl .ev::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--paper)}
+section:nth-of-type(even) .tl .ev::before{border-color:var(--white)}
+.tl .date{font-family:var(--serif-en);font-weight:600;color:var(--navy);font-size:1rem;letter-spacing:.04em}
+.tl .ev p{font-weight:300;font-size:1rem;color:var(--ink);margin-top:4px}
+
+/* footer */
+footer{background:var(--navy);color:rgba(255,255,255,.7);padding:52px 0;text-align:center}
+footer .brand{font-family:var(--serif-en);letter-spacing:.34em;color:var(--gold);font-size:1.05rem;text-transform:uppercase}
+footer .fr{width:48px;height:2px;background:var(--gold);margin:18px auto;border-radius:2px}
+footer p{font-weight:300;font-size:.9rem}
+
+@media(max-width:820px){
+  .cover h1{font-size:2.1rem}
+  .flow{grid-template-columns:1fr}
+  .arrow{padding:14px 0;transform:rotate(90deg)}
+  .mkt-grid,.stat-row,.pc,.opt-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .wrap{padding:0 22px}
+  .tocnav{width:82%}
+}
+
+/* ---------- Data Tables ---------- */
+.tbl-wrap{margin:30px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(0,14,47,.05)}
+.tbl-cap{background:var(--navy);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.tbl-cap .tt{font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.tbl-cap .tt-en{font-family:var(--serif-en);color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:.72rem}
+.tbl-scroll{overflow-x:auto}
+table.data{width:100%;border-collapse:collapse;background:var(--white);font-size:.95rem;min-width:520px}
+table.data thead th{background:var(--paper);color:var(--navy);font-weight:600;text-align:right;padding:13px 18px;border-bottom:2px solid var(--gold);white-space:nowrap;font-size:.9rem}
+table.data thead th:first-child{text-align:left}
+table.data tbody td{padding:12px 18px;text-align:right;border-bottom:1px solid var(--line);color:var(--ink);font-weight:300;font-family:var(--serif-en);font-variant-numeric:tabular-nums}
+table.data tbody td:first-child{text-align:left;font-family:var(--serif-tc);font-weight:400;color:var(--navy)}
+table.data tbody tr:hover{background:rgba(244,183,2,.05)}
+table.data tbody tr.hi td{background:var(--navy);color:var(--gold-soft)}
+table.data tbody tr.hi td:first-child{color:#fff;font-weight:600}
+table.data tbody tr.hi td{border-bottom-color:rgba(255,255,255,.15)}
+table.data tfoot td{padding:12px 18px;text-align:right;font-weight:600;color:var(--navy);background:var(--paper);border-top:2px solid var(--gold);font-family:var(--serif-en)}
+table.data tfoot td:first-child{text-align:left;font-family:var(--serif-tc)}
+.tbl-note{padding:12px 24px;background:var(--paper);color:var(--mute);font-size:.82rem;font-weight:300;line-height:1.6;border-top:1px solid var(--line)}
+.tbl-note .src{font-family:var(--serif-en);letter-spacing:.04em}
+
+/* ---------- Chart container ---------- */
+.chart-box{border:1px solid var(--line);border-radius:16px;background:var(--white);padding:28px 30px 24px;margin:30px 0;box-shadow:0 12px 34px rgba(0,14,47,.05)}
+.chart-box .ch-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chart-box .ch-t{font-weight:600;color:var(--navy);font-size:1.12rem}
+.chart-box .ch-en{font-family:var(--serif-en);color:var(--mute);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem}
+.chart-box .ch-sub{color:var(--mute);font-weight:300;font-size:.9rem;margin-bottom:16px}
+.chart-canvas-holder{position:relative;height:340px}
+.chart-note{color:var(--mute);font-size:.82rem;font-weight:300;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);line-height:1.6}
+.chart-note .src{font-family:var(--serif-en)}
+
+/* ---------- Venn (SVG via D3) ---------- */
+.venn-box{border:1px solid var(--line);border-radius:16px;background:var(--white);padding:30px;margin:30px 0;box-shadow:0 12px 34px rgba(0,14,47,.05)}
+.venn-holder{display:flex;justify-content:center;align-items:center;min-height:400px}
+.venn-legend{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:8px;padding-top:18px;border-top:1px solid var(--line)}
+.venn-legend .lg{display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);font-weight:300}
+.venn-legend .lg .dot{width:14px;height:14px;border-radius:4px}
+.venn-holder text{font-family:var(--serif-tc)}
+
+/* ---------- Gantt (HTML/CSS interactive) ---------- */
+.gantt-box{border:1px solid var(--line);border-radius:16px;background:var(--white);padding:30px 30px 24px;margin:30px 0;box-shadow:0 12px 34px rgba(0,14,47,.05);overflow-x:auto}
+.gantt{min-width:640px}
+.gantt-scale{display:grid;grid-template-columns:190px repeat(12,1fr);border-bottom:2px solid var(--gold);padding-bottom:8px;margin-bottom:6px}
+.gantt-scale .mo{font-family:var(--serif-en);font-size:.68rem;letter-spacing:.06em;color:var(--mute);text-align:center}
+.gantt-scale .lbl-col{font-family:var(--serif-en);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);font-weight:600}
+.gantt-row{display:grid;grid-template-columns:190px repeat(12,1fr);align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}
+.gantt-row:last-child{border-bottom:0}
+.gantt-row .task{font-size:.92rem;color:var(--navy);font-weight:400;padding-right:12px;line-height:1.4}
+.gantt-track{grid-column:2 / -1;position:relative;height:26px}
+.gantt-bar{position:absolute;top:3px;height:20px;border-radius:6px;cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;align-items:center;padding:0 10px}
+.gantt-bar:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,14,47,.22);z-index:5}
+.gantt-bar.phase1{background:var(--navy)}
+.gantt-bar.phase2{background:linear-gradient(90deg,var(--navy-70),var(--navy))}
+.gantt-bar.milestone{background:var(--gold)}
+.gantt-bar .bl{font-size:.68rem;color:#fff;white-space:nowrap;overflow:hidden;font-family:var(--serif-en);font-weight:500}
+.gantt-bar.milestone .bl{color:var(--navy);font-weight:600}
+.gantt-tip{position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:8px;font-size:.82rem;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;max-width:240px;box-shadow:0 10px 30px rgba(0,0,0,.3);line-height:1.5}
+.gantt-tip .tp-t{color:var(--gold);font-weight:600;margin-bottom:3px}
+.gantt-legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.gantt-legend .gl{display:flex;align-items:center;gap:8px;font-size:.86rem;color:var(--ink);font-weight:300}
+.gantt-legend .gl .sw{width:22px;height:12px;border-radius:3px}
+
+/* ---------- Flowchart (HTML/CSS) ---------- */
+.flowchart{margin:30px 0}
+.fc-lane{margin-bottom:26px}
+.fc-lane-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.fc-lane-h .num{font-family:var(--serif-en);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);border-radius:20px;padding:4px 12px}
+.fc-lane-h .nm{font-weight:600;color:var(--navy);font-size:1.05rem}
+.fc-nodes{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.fc-node{flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px;position:relative}
+.fc-node.start{border-left:4px solid var(--gold)}
+.fc-node.dark{background:var(--navy);color:#fff}
+.fc-node.dark .fc-n-t{color:var(--gold-soft)}
+.fc-node.dark .fc-n-d{color:rgba(255,255,255,.8)}
+.fc-node.decision{border:2px dashed var(--gold);background:var(--paper)}
+.fc-node .fc-n-k{font-family:var(--serif-en);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.fc-node .fc-n-t{font-weight:600;color:var(--navy);font-size:1rem;margin:6px 0 4px}
+.fc-node .fc-n-d{color:var(--mute);font-weight:300;font-size:.86rem;line-height:1.6}
+.fc-conn{display:flex;align-items:center;justify-content:center;padding:0 10px;color:var(--gold);font-size:1.5rem;font-family:var(--serif-en);flex-shrink:0}
+.fc-branch{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.fc-branch .bn{border-radius:12px;padding:18px 22px;border:1px solid var(--line)}
+.fc-branch .bn.yes{border-left:4px solid var(--gold);background:var(--white)}
+.fc-branch .bn.no{border-left:4px solid var(--navy-70);background:var(--paper)}
+.fc-branch .bn .tag{font-family:var(--serif-en);letter-spacing:.16em;text-transform:uppercase;font-size:.7rem;font-weight:600;margin-bottom:8px;display:block}
+.fc-branch .bn.yes .tag{color:var(--navy)}
+.fc-branch .bn.no .tag{color:var(--mute)}
+.fc-branch .bn p{font-weight:300;font-size:.92rem;color:var(--ink);line-height:1.6}
+@media(max-width:820px){
+  .fc-nodes{flex-direction:column}
+  .fc-conn{transform:rotate(90deg);padding:8px 0}
+  .fc-branch{grid-template-columns:1fr}
+  .venn-holder svg{width:100%;height:auto}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<button class="menu-btn" id="menuBtn">目錄 Menu</button>
+<nav class="tocnav" id="toc">
+  <div class="t">個案導讀 · Contents</div>
+  <a href="#s1"><span class="n">01</span>交易總覽</a>
+  <a href="#s2"><span class="n">02</span>問題的根源</a>
+  <a href="#s3"><span class="n">03</span>兩階段架構</a>
+  <a href="#s4"><span class="n">04</span>磁碟機產業</a>
+  <a href="#s5"><span class="n">05</span>Seagate 剖析</a>
+  <a href="#s6"><span class="n">06</span>垂直整合辯論</a>
+  <a href="#s7"><span class="n">07</span>科技業 LBO</a>
+  <a href="#s8"><span class="n">08</span>四大決策難題</a>
+  <a href="#s9"><span class="n">09</span>替代方案</a>
+  <a href="#s10"><span class="n">10</span>時間軸</a>
+</nav>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">STATON · 仕坦登企業管理顧問 · 個案導讀</div>
+    <h1>Seagate 科技公司收購案</h1>
+    <div class="sub-en">Seagate Technology Buyout · No. 9-201-063</div>
+    <p class="lead">一樁史無前例的科技業融資併購。當一家公司持有的股票,價值竟超越了公司本身,經營團隊該如何為股東解開這道價值枷鎖?本導讀逐段拆解交易背後的商業邏輯與關鍵決策。</p>
+    <div class="rule-gold"></div>
+    <div class="meta-row">
+      <div class="item"><div class="k">Protagonist</div><div class="v">Stephen Luczo · 執行長</div></div>
+      <div class="item"><div class="k">Sponsor</div><div class="v">Silver Lake Partners</div></div>
+      <div class="item"><div class="k">Key Asset</div><div class="v">VERITAS 持股 ≈ $210億</div></div>
+      <div class="item"><div class="k">Window</div><div class="v">1999.11 ~ 2000.03</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 交易總覽 -->
+<section id="s1">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01 · Overview</div>
+      <h2>交易總覽:一場為股東解鎖價值的重整</h2>
+      <div class="subt">Unlocking Shareholder Value</div>
+    </div>
+    <p class="body">1999 年 11 月初,Seagate 科技總裁暨執行長 <strong>Stephen Luczo</strong> 與私募基金 <strong>Silver Lake Partners</strong> 的代表會晤,商討一個重大的重整方案。Seagate 為<span class="hl">全球最大的電腦磁碟機及資料儲存設備製造商</span>,年收入約為 65 億美元。</p>
+    <p class="body">重整計畫的核心是一個融資併購案 (LBO):由該私募基金收購 Seagate 的磁碟機事業體,而其餘資產則由獨立的儲存管理軟體製造商 <strong>VERITAS 軟體業務公司</strong>以免稅的方式收購。除了磁碟機事業外,Seagate 的主要資產為龐大的 VERITAS 普通股持股,約 <span class="hl">210 億美元</span>。</p>
+    <div class="callout">
+      <div class="q">The Central Insight · 核心洞察</div>
+      <p>經營團隊與 Silver Lake 相信,以兩階段方式進行,可為 Seagate 股東創造可觀的財富利益。這項交易的主要目的:透過免稅方式處分 VERITAS 持股,並以合理市價出售磁碟機事業體,讓股東獲得公司真正的價值。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 問題根源 -->
+<section id="s2">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02 · The Problem</div>
+      <h2>問題的根源:被市場低估的「價差」</h2>
+      <div class="subt">The Value Gap</div>
+    </div>
+    <p class="body">自夏季末期 VERITAS 股價飆升以來,Seagate 所持有的 VERITAS 股票價值<span class="hl">已大幅超過了 Seagate 整體的市值</span>。這是一個違反直覺的處境,公司手上握著的股票,比公司自己還值錢。經營團隊把這個「價差」歸因於兩個因素:</p>
+
+    <div class="logic">
+      <div class="lbl">Root Cause I · 稅賦枷鎖</div>
+      <h4>直接賣出 VERITAS 會觸發巨額稅負</h4>
+      <p>若公司試圖將 VERITAS 的持股獲利了結,將產生<span class="em">巨額的稅賦支出</span>,而這個負擔會直接反應在 Seagate 的股價上。市場預先把這筆稅折算進去,於是壓低了估值。</p>
+    </div>
+
+    <div class="logic">
+      <div class="lbl">Root Cause II · 核心業務被冷落</div>
+      <h4>磁碟機事業的價值未被市場肯定</h4>
+      <p>公司核心的磁碟機事業體之價值<span class="em">並未充分反應在股票市場中</span>。反而是當時那些網路公司及廉價的資料儲存硬體生產商,股價較受市場青睞。</p>
+    </div>
+
+    <p class="body">兩相疊加,結果是:儘管 Seagate 磁碟機事業體具有龐大規模及市場主導地位,但市場似乎並未肯定這個價值,<span class="hl">甚至認為是負價值</span>。這正是董事會必須採取行動的原因。</p>
+
+    <div class="chart-box">
+      <div class="ch-head">
+        <span class="ch-t">價值枷鎖的視覺化:交易後六個月股價變化</span>
+        <span class="ch-en">The Value Gap</span>
+      </div>
+      <div class="ch-sub">1999 年 5 月至 11 月。VERITAS 飆漲逾 200%,Seagate 僅隨其持股微升 25%。Seagate 股價愈來愈綁在 VERITAS 上,而非自身的磁碟機本業。</div>
+      <div class="chart-canvas-holder"><canvas id="chGap"></canvas></div>
+      <div class="chart-note"><span class="src">Source: </span>個案內文所述之六個月股價變動幅度（以起點 100 為基準的相對指數）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 兩階段架構 -->
+<section id="s3">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03 · The Structure</div>
+      <h2>兩階段架構:如何繞過稅賦處分資產</h2>
+      <div class="subt">The Two-Stage Transaction</div>
+    </div>
+    <p class="body">Silver Lake 提出的方案建議 Seagate 將磁碟機事業與 VERITAS 股權區隔開來,而此舉<strong>不會發生懲罰性的稅賦支出</strong>。整個交易拆成兩個緊密相扣的階段:</p>
+
+    <div class="flow">
+      <div class="stage">
+        <span class="badge">Stage 1 · LBO</span>
+        <h4>磁碟機事業融資併購</h4>
+        <p>Seagate 出售所有磁碟機生產相關資產（包括約 7.65 億美元現金）給一家 Silver Lake 控有的新興公司 <span class="tag">Suez Acquisition</span>。</p>
+        <p>資金來源:由股票（Silver Lake 及一群私募投資人承購）與債券（數量龐大）籌募,即以融資併購方式接管業務,讓公司下市。</p>
+        <p style="margin-top:8px;font-size:.9rem;color:var(--mute)">交易條件:六位高層（含執行長 Luczo 及財務長 Charles Pope）須續任,並將部分 Seagate 持股轉換為新公司的股權與遞延薪酬。</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="stage">
+        <span class="badge">Stage 2 · 免稅併購</span>
+        <h4>剩餘空殼併入 VERITAS</h4>
+        <p>此時 Seagate 已成為業務出售後的空殼公司,旗下資產為 <span class="tag">128,059,966 股</span> VERITAS 股票、短期投資及出售所得資金。</p>
+        <p>此公司以免稅方式併入 VERITAS。每股 Seagate 可換得現金及 VERITAS 股份;VERITAS 願以 <span class="tag">109,330,300 股</span>收購剩餘的 Seagate。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="q">The Legal Key · 免稅的關鍵</div>
+      <p>若此合併案符合美國國內收入法規<strong>第 368 (a) 節之「重整」條款</strong>,則此交易將不會課徵公司或個人稅賦。這正是整個架構賴以成立的法律支點。</p>
+    </div>
+
+    <div class="flowchart">
+      <div class="chart-box" style="margin-bottom:0">
+        <div class="ch-head" style="margin-bottom:6px">
+          <span class="ch-t">流程圖:資產與股權如何分流</span>
+          <span class="ch-en">Deal Mechanics Flow</span>
+        </div>
+        <div class="ch-sub" style="margin-bottom:22px">從併購前的 Seagate,到磁碟機資產與 VERITAS 持股各自分流的完整路徑。</div>
+
+        <div class="fc-lane">
+          <div class="fc-lane-h"><span class="num">Start</span><span class="nm">併購前的 Seagate</span></div>
+          <div class="fc-nodes">
+            <div class="fc-node start">
+              <div class="fc-n-k">Asset A</div>
+              <div class="fc-n-t">磁碟機事業體</div>
+              <div class="fc-n-d">含約 $7.65 億現金的生產相關資產</div>
+            </div>
+            <div class="fc-conn">+</div>
+            <div class="fc-node start">
+              <div class="fc-n-k">Asset B</div>
+              <div class="fc-n-t">VERITAS 持股</div>
+              <div class="fc-n-d">128,059,966 股 + 短期投資</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fc-lane">
+          <div class="fc-lane-h"><span class="num">Stage 1</span><span class="nm">磁碟機資產 → LBO 出售</span></div>
+          <div class="fc-nodes">
+            <div class="fc-node">
+              <div class="fc-n-k">Buyer</div>
+              <div class="fc-n-t">Suez Acquisition</div>
+              <div class="fc-n-d">Silver Lake 控股之新設公司</div>
+            </div>
+            <div class="fc-conn">←</div>
+            <div class="fc-node dark">
+              <div class="fc-n-k">Financing</div>
+              <div class="fc-n-t">股票 + 債券</div>
+              <div class="fc-n-d">私募股權投資人承購股票,搭配大額債務融資,公司下市</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fc-lane">
+          <div class="fc-lane-h"><span class="num">Stage 2</span><span class="nm">剩餘空殼 → 併入 VERITAS</span></div>
+          <div class="fc-nodes">
+            <div class="fc-node">
+              <div class="fc-n-k">Shell</div>
+              <div class="fc-n-t">Seagate 空殼</div>
+              <div class="fc-n-d">VERITAS 股票 + 出售所得資金</div>
+            </div>
+            <div class="fc-conn">→</div>
+            <div class="fc-node dark">
+              <div class="fc-n-t">免稅換股併入 VERITAS</div>
+              <div class="fc-n-d">VERITAS 以 109,330,300 股收購;每股 Seagate 換得現金 + VERITAS 股份</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fc-lane" style="margin-bottom:0">
+          <div class="fc-lane-h"><span class="num">Gate</span><span class="nm">決策關卡:第 368(a) 節</span></div>
+          <div class="fc-node decision" style="min-width:100%">
+            <div class="fc-n-k">Decision</div>
+            <div class="fc-n-t">合併是否符合「重整」條款?</div>
+            <div class="fc-n-d">此為整個免稅架構的成敗分水嶺。</div>
+          </div>
+          <div class="fc-branch">
+            <div class="bn yes">
+              <span class="tag">Yes · 符合</span>
+              <p>不課徵公司或個人稅賦,股東順利實現公司真正價值,交易目的達成。</p>
+            </div>
+            <div class="bn no">
+              <span class="tag">No · 不符合</span>
+              <p>觸發懲罰性稅賦（公司層級的資本利得稅 + 股東股利所得稅），交易失去意義。</p>
+            </div>
+          </div>
+        </div>
+        <div class="chart-note" style="margin-top:20px"><span class="src">Source: </span>VERITAS 與 Seagate 聯合委託書／公開說明書（2000/10/23）及案文所述交易結構（Exhibit 6）。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 磁碟機產業 -->
+<section id="s4">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04 · The Industry</div>
+      <h2>磁碟機產業:一場價格戰下的三分市場</h2>
+      <div class="subt">Inside the Disk Drive Business</div>
+    </div>
+    <p class="body">硬碟是儲存電子資訊最常用的媒介,構成資訊儲存產業中規模最大的領域。磁碟機被整合在各種產品中,約可區分為三大市場。毛利率的高低,揭示了各市場的競爭本質:</p>
+
+    <div class="mkt-grid">
+      <div class="mkt">
+        <div class="h">桌上型電腦</div>
+        <div class="h-en">Desktop</div>
+        <div class="margin">10~15%<small>毛利率</small></div>
+        <p>效能已標準化,消費者品牌認知度低,磁碟機成為普遍商品,業者以價格取勝。</p>
+      </div>
+      <div class="mkt">
+        <div class="h">企業用戶</div>
+        <div class="h-en">Enterprise</div>
+        <div class="margin">20~25%<small>毛利率</small></div>
+        <p>工作站、伺服器、磁碟陣列等。強調功效、品質與產品特色,附加價值高,毛利也較高。</p>
+      </div>
+      <div class="mkt">
+        <div class="h">行動產品</div>
+        <div class="h-en">Mobile</div>
+        <div class="margin">較高<small>優於桌上型</small></div>
+        <p>筆電、PDA 等。體積小、材質耐用,考量耐用性與電力消耗,並非單純以價取勝。</p>
+      </div>
+    </div>
+
+    <div class="logic">
+      <div class="lbl">Market Dynamics · 產業結構</div>
+      <h4>高度集中、客戶少、換供應商代價大</h4>
+      <p>六家廠商即佔據總銷售量的 <span class="em">95%</span>。數家業者極力爭取少數主要客戶,競爭激烈,客戶通常同時只跟兩三家供應商往來。</p>
+      <p>在每件新產品生命週期最初的 6 至 12 個月,客戶依廠商宣稱的性能與品質篩選供應商。若業者無法在篩選階段提供新品測試,<span class="em">可能喪失一整年的銷售額</span>。</p>
+    </div>
+
+    <p class="body">1990 年代晚期,產業受惠於資料儲存需求增溫,卻也歷經嚴峻的價格戰爭。自 1997 年以來,當銷售量以逼近 <span class="hl">20%</span> 的速度成長時,價格卻大幅滑落,造成整體收入下滑。專家預期,至少中期而言,<strong>收入成長將遠落後於銷售單位數的成長</strong>,業者因此紛紛尋覓新的收入來源:</p>
+
+    <div class="chart-box">
+      <div class="ch-head">
+        <span class="ch-t">產業的核心矛盾:量增,值不增</span>
+        <span class="ch-en">Exhibit 1 · Units vs Revenue</span>
+      </div>
+      <div class="ch-sub">1991 至 2003（E 為預測）。出貨量（金柱）持續攀升,總營收（藍線）卻幾乎原地踏步。價格崩落吃掉了所有數量成長。</div>
+      <div class="chart-canvas-holder"><canvas id="chIndustry"></canvas></div>
+      <div class="chart-note"><span class="src">Source: </span>Computer Industry Abstracts 與 Salomon Smith Barney「Disk Drive Quarterly Report」(June 1999)。左軸:出貨量（百萬台）;右軸:總營收（百萬美元）。</div>
+    </div>
+
+    <div class="opt-grid">
+      <div class="opt">
+        <div class="n">Growth I</div>
+        <h4>儲存網路 SAN / NAS</h4>
+        <p>資料儲存量每年翻倍成長。SAN 與 NAS 結合磁碟機與複雜網路設備軟體,讓製造商能與同業區隔。</p>
+      </div>
+      <div class="opt">
+        <div class="n">Growth II</div>
+        <h4>消費性電子市場</h4>
+        <p>數位錄影機（TiVo）、電視遊樂器（Xbox）等。基期雖小,但預期未來三年年成長率超過 50%。</p>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <div class="tbl-cap">
+        <span class="tt">表 A · 1999 全球磁碟機產業市佔率（出貨量）</span>
+        <span class="tt-en">Table A · Worldwide Market Share</span>
+      </div>
+      <div class="tbl-scroll">
+        <table class="data">
+          <thead>
+            <tr><th>製造商</th><th>總市場 ª</th><th>企業用戶</th><th>桌上型</th></tr>
+          </thead>
+          <tbody>
+            <tr class="hi"><td>Seagate</td><td>21.1%</td><td>41.0%</td><td>21.1%</td></tr>
+            <tr><td>Quantum</td><td>17.1%</td><td>7.2%</td><td>20.5%</td></tr>
+            <tr><td>IBM</td><td>14.0%</td><td>34.6%</td><td>6.1%</td></tr>
+            <tr><td>Maxtor</td><td>13.3%</td><td>ᵇ</td><td>17.7%</td></tr>
+            <tr><td>Fujitsu</td><td>12.3%</td><td>8.8%</td><td>12.4%</td></tr>
+            <tr><td>Western Digital</td><td>11.1%</td><td>3.8%</td><td>14.6%</td></tr>
+            <tr><td>Samsung</td><td>5.9%</td><td>ᵇ</td><td>7.5%</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>總銷售額（$百萬）</td><td>$25,273</td><td>$7,438</td><td>$14,627</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="tbl-note">ª 含行動產品。ᵇ 數量未明。<span class="src"> 資料來源:Salomon Smith Barney「Disk Drive Quarterly Report」(March 2000)。</span></div>
+    </div>
+
+    <div class="callout">
+      <div class="q">Reading the Table · 表格解讀</div>
+      <p>Seagate 以 21.1% 總市佔居首,但真正的分野在<strong>企業用戶市場</strong>:它握有 41.0%,遠勝第二名 IBM 的 34.6%。這正是為何 51% 營收來自高毛利的企業系統。反觀桌上型市場高度分散,七家瓜分,Quantum 甚至以 20.5% 略勝 Seagate,印證了此區塊「以價取勝」的商品化本質。</p>
+    </div>
+
+    <div class="chart-box">
+      <div class="ch-head">
+        <span class="ch-t">市佔率結構對比:企業 vs 桌上型</span>
+        <span class="ch-en">Segment Positioning</span>
+      </div>
+      <div class="ch-sub">將滑鼠移至長條可查看各廠商在兩大市場的佔比差異。Seagate 的優勢集中在高毛利的企業端。</div>
+      <div class="chart-canvas-holder"><canvas id="chShare"></canvas></div>
+      <div class="chart-note"><span class="src">Source: </span>依表 A 數據繪製。企業與桌上型市場個別加總不含「數量未明」項。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Seagate 剖析 -->
+<section id="s5">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05 · The Company</div>
+      <h2>Seagate 剖析:效率制勝的產業龍頭</h2>
+      <div class="subt">Anatomy of a Market Leader</div>
+    </div>
+    <p class="body">Seagate 於 1979 年由五位科技及企業人士共同組成,他們都曾在硬碟早期開發中扮演重要角色。到了 2000 年,已成為全球磁碟機產業的龍頭廠商:</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="num">21%</div><div class="cap">全球市佔率</div></div>
+      <div class="stat"><div class="num">$70億</div><div class="cap">全年營收（近）</div></div>
+      <div class="stat"><div class="num">111,000</div><div class="cap">員工數 · 約 80% 在亞洲</div></div>
+      <div class="stat"><div class="num">65%</div><div class="cap">磁碟機收入來自 OEM</div></div>
+    </div>
+
+    <p class="body">截至 1999 年 6 月會計年度,Seagate 銷售額有 <strong>39% 來自桌上型電腦磁碟機、51% 來自企業系統</strong>,剩餘 10% 為磁帶機及軟體產品。這種橫跨高階與低階市場的產品組合,是它的成本優勢來源。</p>
+
+    <div class="callout">
+      <div class="q">Why It Wins · 成本優勢的來源</div>
+      <p>低階市場（如個人電腦硬碟）雖獲利有限,但服務大眾市場創造了可觀的規模經濟,讓 Seagate 在其他業務上都享有低廉成本的優勢。這正是它成為 1992~93 年及 1999 年<strong>唯一保持獲利</strong>的獨立硬碟製造商的關鍵。</p>
+    </div>
+
+    <p class="body">1996~97 年景氣低迷,Seagate 進行了積極的組織重整:陸續關閉或出售位於愛爾蘭、蘇格蘭、馬來西亞、墨西哥、菲律賓的生產基地,退出行動磁碟機市場,員工人數在 1999 年底縮減超過 <span class="hl">20%</span>。另一項重大事件是聯合創辦人暨執行長 Alan Shugart 遭董事會撤換,由 <strong>Stephen Luczo</strong> 接任。</p>
+
+    <p class="body">Luczo 及其團隊將挑戰視為整合並擴大龍頭地位的機會,不僅在硬碟,也涵蓋資料儲存應用。2000 年 1 月,Seagate 收購了提供 SAN 技術的 XIOtech 私有公司,正式跨足儲存網路市場。分析師也預期它將重新進入<strong>行動磁碟機領域</strong>,因為該領域利潤較高、技術取得容易、客戶與桌上型重疊。</p>
+
+    <div class="tbl-wrap">
+      <div class="tbl-cap">
+        <span class="tt">四大上市磁碟機廠財務對比（最近會計年度）</span>
+        <span class="tt-en">Exhibit 3 · Peer Comparison</span>
+      </div>
+      <div class="tbl-scroll">
+        <table class="data">
+          <thead>
+            <tr><th>項目（$百萬）</th><th>Seagate<br>Jun-99</th><th>Quantum<br>Mar-99</th><th>W. Digital<br>Jun-99</th><th>Maxtor<br>Dec-98</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>營收</td><td>6,802</td><td>3,599</td><td>2,767</td><td>2,409</td></tr>
+            <tr><td>毛利</td><td>1,552</td><td>291</td><td>205</td><td>375</td></tr>
+            <tr class="hi"><td>EBITDA</td><td>1,011</td><td>(61)</td><td>(188)</td><td>134</td></tr>
+            <tr><td>營業損益</td><td>398</td><td>(133)</td><td>(319)</td><td>60</td></tr>
+            <tr><td>淨利</td><td>503</td><td>(153)</td><td>(493)</td><td>31</td></tr>
+            <tr><td>資本支出</td><td>603</td><td>82</td><td>107</td><td>95</td></tr>
+            <tr><td>債信評等</td><td>BBB</td><td>B2</td><td>B2</td><td>B1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tbl-note">括號為負值。<span class="src"> 資料來源:Compustat 與 SEC 申報文件。債信評等與股價為 2000/3/10。</span></div>
+    </div>
+
+    <div class="callout">
+      <div class="q">The Contrast · 一枝獨秀</div>
+      <p>同一個會計年度,當三家同業全數落入 EBITDA 或淨利虧損時,Seagate 仍繳出 10.11 億 EBITDA 與 5.03 億淨利。它是唯一擁有<strong>投資等級 BBB</strong> 的獨立廠商,其餘皆為投機級（B 級）。這道評等落差,正是後續 LBO 融資結構能否成立的先決伏筆。</p>
+    </div>
+
+    <div class="chart-box">
+      <div class="ch-head">
+        <span class="ch-t">獲利能力對比:Seagate vs 三大同業</span>
+        <span class="ch-en">Profitability Gap</span>
+      </div>
+      <div class="ch-sub">將滑鼠移至長條可查看數值。負值長條落在基準線下方,凸顯 Seagate 與同業的距離。</div>
+      <div class="chart-canvas-holder"><canvas id="chPeers"></canvas></div>
+      <div class="chart-note"><span class="src">Source: </span>依 Exhibit 3 繪製,單位為百萬美元。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 垂直整合辯論 -->
+<section id="s6">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06 · The Debate</div>
+      <h2>垂直整合辯論:優勢還是包袱?</h2>
+      <div class="subt">Vertical Integration · Asset or Liability</div>
+    </div>
+    <p class="body">Seagate 是業界唯一一家大型的<strong>垂直整合</strong>獨立磁碟機製造商:除了組裝產品,也設計並生產大部分主要零件。這需要比同業更高的研發經費與資本支出,但也引發了經營團隊與財務分析師之間的根本分歧:</p>
+
+    <div class="pc">
+      <div class="col pro">
+        <div class="h">經營團隊觀點 · 這是競爭優勢</div>
+        <ul>
+          <li>控制關鍵技術（內部自行研發），無須仰賴獨立供應商,降低景氣蕭條時的風險。</li>
+          <li>對生產過程有更多控制力,能加快速度、因應需求激增,且良率維持高水準。</li>
+          <li>可維持較低的零件庫存量,因為需求激增時不需擔憂供應商是否配合。</li>
+          <li>龐大投資阻擋了小型、資本弱的業者進入市場,維持了競爭門檻。</li>
+        </ul>
+      </div>
+      <div class="col con">
+        <div class="h">財務分析師觀點 · 這是沉重包袱</div>
+        <ul>
+          <li>垂直整合公司勢必負擔較高的固定成本,景氣反轉時雪上加霜。</li>
+          <li>惠普、思科、IBM 已逐漸將硬體製造委外給代工業者（如 Solectron）。</li>
+          <li>代工廠同時接多家訂單,理論上可創造可觀的經濟規模。</li>
+          <li>對 LBO 而言,高固定成本使業者難以再負擔傳統結構中的鉅額負債。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="q">Teaching Point · 為何這個辯論重要</div>
+      <p>當 Luczo 在 1997 年接任營運長時,Seagate 花約 12 週增產卻未達額外產量預算的 80%,每季約有 2 億美元的報廢產品。快速增產能力在產品週期急速縮短的產業中日漸重要,這正是垂直整合價值的實戰印證,也是分析師成本疑慮的反面。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 科技業 LBO -->
+<section id="s7">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07 · The Precedent</div>
+      <h2>科技業 LBO:一次逆勢的先驅實驗</h2>
+      <div class="subt">The Rise of Tech Buyouts</div>
+    </div>
+    <p class="body">1980 至 1990 年代初期,融資併購業者一般<strong>不願跨入科技業</strong>:成長快速、產品週期短、需求極不穩定,現金流量難以預估;許多科技業有形資產有限,進一步降低了 LBO 投資人的興趣。但這些看法從 1990 年代晚期開始轉變:</p>
+
+    <div class="logic">
+      <div class="lbl">Why Now · 環境的轉變</div>
+      <h4>成熟穩定 + 低本益比 + 高收益債反彈</h4>
+      <p>投資人相信科技產業<span class="em">部份領域已逐漸成熟穩定</span>,成為傳統 LBO 的標的。從股市本益比觀之,科技股整體已處於低檔。而高收益債券市場大幅反彈,為新交易創造了龐大的資金來源。</p>
+    </div>
+
+    <p class="body">於是市場出現一批對 LBO 及科技業頗具專長的新私募基金:<strong>Silver Lake Partners、Texas Pacific Group、Hicks Muse Tate &amp; Furst</strong>,投入數十億美元收購科技公司。考量 Seagate 的規模、市值與龍頭地位,這樁收購案可望成為指標性交易,就如同 <span class="hl">1989 年的 RJR Nabisco 收購案</span>。</p>
+
+    <div class="pc">
+      <div class="col con">
+        <div class="h">磁碟機為何難做 LBO</div>
+        <ul>
+          <li>價格競爭激烈,產品週期極短（往往只有六個月）。</li>
+          <li>複雜技術需要可觀研發經費,產品創新決定獲利或虧損。</li>
+          <li>須迅速依客戶規格量產,生產設施需鉅額資金。</li>
+          <li>研發與資本支出耗盡有限資金,難再負擔傳統 LBO 的鉅額負債。</li>
+        </ul>
+      </div>
+      <div class="col pro">
+        <div class="h">但 Seagate 具備的有利特質</div>
+        <ul>
+          <li>垂直整合帶來強大競爭優勢,能更快反應技術與客戶需求的轉變。</li>
+          <li>避免供應鏈失調的鉅額代價。</li>
+          <li>龐大研發與資本支出阻擋了資本弱的業者進入,維持競爭優勢。</li>
+          <li>Silver Lake 對資料儲存前景極為樂觀,視磁碟機為未來科技的關鍵零件。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="q">In Their Words · 投資人的信念</div>
+      <p>Silver Lake 高層 Glenn Hutchins 表示:「如果要建構一條資訊高速公路,則我們將需要有足夠的停車位。」磁碟機,就是那個停車位。</p>
+    </div>
+
+    <div class="venn-box">
+      <div class="ch-head" style="margin-bottom:6px">
+        <span class="ch-t">永道圖:Seagate 適合做 LBO 嗎?</span>
+        <span class="ch-en">Venn · LBO Suitability</span>
+      </div>
+      <div class="ch-sub">傳統 LBO 標的的條件（左）與 Seagate 實際特質（右）。兩圈交集,正是這樁交易得以成立的地帶。</div>
+      <div class="venn-holder" id="vennLBO"></div>
+      <div class="venn-legend">
+        <div class="lg"><span class="dot" style="background:var(--navy)"></span>傳統 LBO 條件</div>
+        <div class="lg"><span class="dot" style="background:var(--gold)"></span>Seagate 特質</div>
+        <div class="lg"><span class="dot" style="background:#5a6a52"></span>交集:成交關鍵</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 四大決策難題 -->
+<section id="s8">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">08 · The Decisions</div>
+      <h2>四大決策難題:交易成敗的關鍵拿捏</h2>
+      <div class="subt">Four Critical Questions</div>
+    </div>
+    <p class="body">這樁交易引申出一系列棘手且互相牽動的問題。每一個都沒有標準答案,構成了整個個案的決策核心:</p>
+
+    <div class="dec">
+      <div class="item">
+        <div class="idx">01</div>
+        <div class="c">
+          <h4>該支付多少收購磁碟機事業?</h4>
+          <p>Seagate 為公開公司,Luczo 及董事有義務為股東爭取公平合理的價格;但 Silver Lake 及聯合投資人也要賺取報酬以彌補承擔的風險。此外,Luczo 等高層仍將留任磁碟機部門,這是一個利益需要小心平衡的定價難題。</p>
+          <p style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.94rem;color:var(--mute)"><strong style="color:var(--navy)">治理設計:</strong>身為董事會中唯一的管理層成員,為避免利益衝突,Luczo 被排除在所有董事會審議及最終批准交易的表決之外。整個流程由非管理層、亦非收購投資人的兩位董事會共同主席 Gary Filler 與 Lawrence Perlman 協調監督。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="idx">02</div>
+        <div class="c">
+          <h4>如何籌措資金 · 資本結構怎麼定?</h4>
+          <p>籌資方式將直接影響新 Seagate 的資本結構。由於磁碟機獲利波動性大,這類交易須採用比傳統 LBO 更穩健的結構（即較低借款率）。難題在於:在高負債貢獻的利益與潛在成本之間妥適拿捏。若能維持 <strong>BBB 或更高</strong>的投資評等,未來取得融資的能力將明顯提升。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="idx">03</div>
+        <div class="c">
+          <h4>如何滿足 VERITAS 的需求與顧慮?</h4>
+          <p>VERITAS 是交易的關鍵成員。第二階段條件勢必得能吸引 VERITAS 的股東,若無法取得他們的同意,整個重整案將無法完成。磁碟機事業售出後,必須提供這些股東具吸引力的報酬,以換取 Seagate 剩餘資產（約 1.28 億 VERITAS 股份）。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="idx">04</div>
+        <div class="c">
+          <h4>如何證明此案優於其他方案?</h4>
+          <p>交易須經 Seagate 及 VERITAS 雙方股東會同意。針對低迷股價,董事會已思考多項替代方案,因此必須證明這樁 Silver Lake 交易確實優於其他選擇。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="q">Credit Rating Logic · 信評的判斷邏輯</div>
+      <p>標準普爾明確指出:財務比率必須搭配公司業務風險一併檢視。<strong>擁有穩定現金流量的公司可承受更高的財務風險,卻享有相同的信用評等</strong>;反之,若現金流量難以預測,則需要更高的利息覆蓋率及較低的負債比率才能取得相同評等。這正是磁碟機業務波動性所帶來的融資挑戰。</p>
+    </div>
+
+    <div class="tbl-wrap">
+      <div class="tbl-cap">
+        <span class="tt">信評對應的市場利率與關鍵財務比率</span>
+        <span class="tt-en">Exhibit 10 &amp; 11 · Rating Benchmarks</span>
+      </div>
+      <div class="tbl-scroll">
+        <table class="data">
+          <thead>
+            <tr><th>債信評等</th><th>公司債長期利率</th><th>EBIT 利息覆蓋率</th><th>總負債 / 市值</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AAA</td><td>7.01%</td><td>17.5x</td><td>3.7%</td></tr>
+            <tr><td>AA</td><td>7.14%</td><td>10.8x</td><td>9.2%</td></tr>
+            <tr><td>A</td><td>7.31%</td><td>6.8x</td><td>16.4%</td></tr>
+            <tr class="hi"><td>BBB（目標門檻）</td><td>7.72%</td><td>3.9x</td><td>30.4%</td></tr>
+            <tr><td>BB</td><td>9.18%</td><td>2.3x</td><td>47.5%</td></tr>
+            <tr><td>B</td><td>10.44%</td><td>1.0x</td><td>59.3%</td></tr>
+            <tr><td>CCC</td><td>n/a</td><td>0.2x</td><td>74.3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tbl-note">利率為 2000 年 3 月數據;財務比率為 1997 至 1999 三年中位數。<span class="src"> 資料來源:S&amp;P Datastream 及 S&amp;P Credit Week (Sep 2000)。</span></div>
+    </div>
+
+    <div class="callout">
+      <div class="q">Why BBB Matters · 為何鎖定 BBB</div>
+      <p>若 Seagate 在整個預測期能維持 <strong>BBB 或更高</strong>評等,未來融資能力將明顯提升。從表中可見,BBB 到 BB 之間有一道陡峭的<strong>斷崖</strong>:利率從 7.72% 跳升至 9.18%,負債容忍度也大幅放寬。跨過投資級與投機級的界線,融資成本天差地別。這正是收購團隊在設計資本結構時的核心約束。</p>
+    </div>
+
+    <div class="chart-box">
+      <div class="ch-head">
+        <span class="ch-t">投資級與投機級之間的利率斷崖</span>
+        <span class="ch-en">The Rating Cliff</span>
+      </div>
+      <div class="ch-sub">將滑鼠移至折線節點查看利率。BBB（金點）是 Seagate 的目標門檻,再往下即進入成本陡升的投機級區間。</div>
+      <div class="chart-canvas-holder"><canvas id="chRating"></canvas></div>
+      <div class="chart-note"><span class="src">Source: </span>Exhibit 10,2000 年 3 月公司債長期利率。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 替代方案 -->
+<section id="s9">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">09 · Alternatives</div>
+      <h2>替代方案:董事會桌上的其他選項</h2>
+      <div class="subt">The Options on the Table</div>
+    </div>
+    <p class="body">針對 Seagate 的低迷股價,董事會已思考了幾項因應方案。Silver Lake 的交易必須證明自己優於以下這些選擇,才能贏得雙方股東會的同意:</p>
+
+    <div class="opt-grid">
+      <div class="opt">
+        <div class="n">Option A</div>
+        <h4>庫藏股 + 部分出售</h4>
+        <p>施行庫藏股,並出售部分 VERITAS 持股。</p>
+      </div>
+      <div class="opt">
+        <div class="n">Option B</div>
+        <h4>免稅處分磁碟機事業</h4>
+        <p>以免稅方式處分磁碟機事業,或所有 VERITAS 股份。</p>
+      </div>
+      <div class="opt">
+        <div class="n">Option C</div>
+        <h4>出售整個 Seagate</h4>
+        <p>將整家公司出售。</p>
+      </div>
+      <div class="opt">
+        <div class="n">Option D</div>
+        <h4>Silver Lake 兩階段案</h4>
+        <p>本個案的主方案,但須經雙方股東會同意。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="q">The Financing Rationale · 為何選擇私募</div>
+      <p>當磁碟機廠商不再受股市青睞,從公開市場取得長期資金的困難度便增加。若以私募方式取得資金,Seagate 將可積極追求長期性投資。Silver Lake 聯合創辦人 Roger McNamee 表示,一旦 Seagate 私有化,他們將「瘋狂」地投入於新產品及生產設備的開發,公司估計研發與資本支出每年需增加。</p>
+    </div>
+
+    <div class="logic">
+      <div class="lbl">Why Earlier Fixes Failed · 常規手段為何失效</div>
+      <h4>賣股受制於協議,庫藏股又無感</h4>
+      <p>管理層曾嘗試常規手段:<span class="em">出售部分 VERITAS 股份並在公開市場買回自家股票</span>,但兩者都證明無效。出售 VERITAS 持股的能力受限於<span class="em">先前與 VERITAS 的協議</span>（VERITAS 擔憂此類拋售會壓低自身股價）,加上出售須課稅;而買回 Seagate 股票對股價幾乎沒有影響。這正是為何需要一個更結構性的方案。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 時間軸 -->
+<section id="s10">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">10 · Timeline</div>
+      <h2>時間軸:交易如何一步步成形</h2>
+      <div class="subt">How the Deal Took Shape</div>
+    </div>
+
+    <div class="gantt-box">
+      <div class="ch-head" style="margin-bottom:6px">
+        <span class="ch-t">永道圖:交易推進的時程與重疊</span>
+        <span class="ch-en">Gantt · Deal Timeline</span>
+      </div>
+      <div class="ch-sub" style="margin-bottom:20px">將滑鼠移至色條查看細節。金色為里程碑事件,深藍為持續進行的工作。1999 年 5 月至 2000 年 3 月。</div>
+      <div class="gantt" id="ganttChart"></div>
+      <div class="gantt-legend">
+        <div class="gl"><span class="sw" style="background:var(--gold)"></span>里程碑事件</div>
+        <div class="gl"><span class="sw" style="background:var(--navy)"></span>持續進行的工作</div>
+      </div>
+      <div class="chart-note" style="margin-top:16px"><span class="src">Source: </span>依案文所述各階段時點繪製。橫軸為 1999/05 至 2000/04。</div>
+    </div>
+
+    <div class="tl">
+      <div class="ev">
+        <div class="date">1999 年 5 月</div>
+        <p>Seagate 出售網路及儲存事業部（NSMG）給 VERITAS,交換 1.55 億股 VERITAS 股票,成為其最大股東,持股超過四成。</p>
+      </div>
+      <div class="ev">
+        <div class="date">交易後六個月</div>
+        <p>VERITAS 股價飆升超過 200%;同期 Seagate 股價僅揚升 25%。Seagate 持有的 VERITAS 股權價值一度超過 Seagate 整體市值。</p>
+      </div>
+      <div class="ev">
+        <div class="date">1999 年 10 月底</div>
+        <p>董事會授權 Luczo 與摩根史坦利證券洽談,委託其擔任顧問,提供股價提升方案。最大考量是出售或分配 VERITAS 股份所衍生的龐大稅賦。</p>
+      </div>
+      <div class="ev">
+        <div class="date">1999 年 11 月初</div>
+        <p>摩根史坦利安排 Luczo 與 Silver Lake 代表會商。經數月討論,Silver Lake（由 James Davidson、Glenn Hutchins、David Roux 及 Integral Capital Partners 經營）提出將磁碟機事業與 VERITAS 股權區隔的方案,不會發生懲罰性稅賦。</p>
+      </div>
+      <div class="ev">
+        <div class="date">2000 年 1 月</div>
+        <p>Seagate 收購提供 SAN 技術的 XIOtech 私有公司,正式跨足儲存網路市場。</p>
+      </div>
+      <div class="ev">
+        <div class="date">2000 年 3 月</div>
+        <p>Silver Lake、VERITAS 及其他顧問間的協商持續進行。交易極為複雜,無法保證能協調出讓各方接受的條件。收購團隊仍須決定支付金額、融資管道與新事業體的資本結構。</p>
+      </div>
+    </div>
+
+    <div class="logic">
+      <div class="lbl">The Open Question · 懸而未決</div>
+      <h4>一樁沒有保證結局的先驅交易</h4>
+      <p>Luczo 形容磁碟機業務是「<span class="em">科技業中最激烈的球賽</span>」。當 Seagate 重新跨入行動磁碟機、並藉由 SAN 及 NAS 的突破,可望創造營收與獲利的持續成長。但收購團隊仍面對三道未解的抉擇:支付多少、如何融資、如何構築能撐過波動的資本結構,這正是留給讀者的決策起點。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">STATON · Management Consulting</div>
+    <div class="fr"></div>
+    <p style="font-size:1.05rem;color:rgba(255,255,255,.9);font-weight:500">仕坦登企業管理顧問有限公司</p>
+    <p style="margin-top:4px;font-family:var(--serif-en);letter-spacing:.06em;color:var(--gold-soft)">From Insight to Execution</p>
+    <p style="margin-top:20px">個案導讀 · Seagate 科技公司收購案 · Case No. 9-201-063</p>
+    <p style="margin-top:16px">
+      <a href="https://staton.com.tw/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;font-family:var(--serif-en);letter-spacing:.14em;font-size:1rem;border-bottom:1px solid rgba(244,183,2,.4);padding-bottom:2px">https://staton.com.tw</a>
+    </p>
+    <p style="margin-top:20px;opacity:.5;font-size:.82rem">Copyright © 2026 STATON Management Consulting LTD. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// progress bar
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  prog.style.width=pct+'%';
+});
+// toc toggle
+const toc=document.getElementById('toc'),btn=document.getElementById('menuBtn');
+btn.addEventListener('click',()=>toc.classList.toggle('open'));
+toc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toc.classList.remove('open')));
+document.addEventListener('click',e=>{
+  if(!toc.contains(e.target)&&!btn.contains(e.target))toc.classList.remove('open');
+});
+
+/* ============ BRAND PALETTE ============ */
+const NAVY='#000e2f',GOLD='#f4b702',NAVY70='#243456',MUTE='#6b7488',LINE='rgba(0,14,47,.12)',PAPER='#f7f5f0',GOLDSOFT='#f9d878';
+Chart.defaults.font.family="'Cormorant Garamond','Noto Serif TC',serif";
+Chart.defaults.color=MUTE;
+Chart.defaults.font.size=13;
+
+const gridCfg={grid:{color:LINE,drawTicks:false},border:{display:false}};
+const tipCfg={backgroundColor:NAVY,titleColor:GOLD,bodyColor:'#fff',padding:12,cornerRadius:8,titleFont:{size:14,weight:'600'},bodyFont:{size:13},displayColors:true,boxPadding:5};
+
+/* lazy render on scroll into view */
+function whenVisible(id,fn){
+  const el=document.getElementById(id);
+  if(!el)return;
+  let done=false;
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting&&!done){done=true;fn();io.disconnect();}});
+  },{threshold:.15});
+  io.observe(el);
+}
+
+/* ---- Chart 1: Value Gap (S2) ---- */
+whenVisible('chGap',()=>{
+  new Chart(document.getElementById('chGap'),{
+    type:'bar',
+    data:{labels:['VERITAS 股價','Seagate 股價'],
+      datasets:[{label:'六個月漲幅（%）',data:[200,25],
+        backgroundColor:[GOLD,NAVY70],borderRadius:8,barThickness:90}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{...tipCfg,callbacks:{label:c=>'漲幅 +'+c.parsed.y+'%'}}},
+      scales:{y:{...gridCfg,beginAtZero:true,ticks:{callback:v=>'+'+v+'%'},title:{display:true,text:'相對漲幅',color:MUTE}},
+        x:{...gridCfg,grid:{display:false},ticks:{color:NAVY,font:{size:15,weight:'600'}}}}}
+  });
+});
+
+/* ---- Chart 2: Industry Units vs Revenue (S4) ---- */
+whenVisible('chIndustry',()=>{
+  const yrs=['91','92','93','94','95','96','97','98','99','00E','01E','02E','03E'];
+  const units=[33.1,38.4,51.8,69,90,106.8,129.3,143.6,165.9,187.8,212.5,238.1,268.2];
+  const rev=[24300,26200,21730,22966,22991,27596,27340,25483,25273,26640,28409,30450,32699];
+  new Chart(document.getElementById('chIndustry'),{
+    data:{labels:yrs,datasets:[
+      {type:'bar',label:'出貨量（百萬台）',data:units,backgroundColor:GOLD,borderRadius:5,yAxisID:'y',order:2},
+      {type:'line',label:'總營收（百萬美元）',data:rev,borderColor:NAVY,backgroundColor:NAVY,borderWidth:3,pointRadius:3,pointHoverRadius:6,pointBackgroundColor:NAVY,tension:.3,yAxisID:'y1',order:1}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'bottom',labels:{padding:16,usePointStyle:true,color:NAVY}},tooltip:tipCfg},
+      scales:{
+        y:{...gridCfg,position:'left',beginAtZero:true,title:{display:true,text:'出貨量（百萬台）',color:GOLD},ticks:{color:MUTE}},
+        y1:{position:'right',grid:{display:false},border:{display:false},beginAtZero:false,min:18000,title:{display:true,text:'營收（$百萬）',color:NAVY},ticks:{color:MUTE,callback:v=>(v/1000)+'k'}},
+        x:{...gridCfg,grid:{display:false},ticks:{color:NAVY}}}}
+  });
+});
+
+/* ---- Chart 3: Segment Share (S4) ---- */
+whenVisible('chShare',()=>{
+  const firms=['Seagate','Quantum','IBM','Maxtor','Fujitsu','W. Digital','Samsung'];
+  const ent=[41.0,7.2,34.6,null,8.8,3.8,null];
+  const desk=[21.1,20.5,6.1,17.7,12.4,14.6,7.5];
+  new Chart(document.getElementById('chShare'),{
+    type:'bar',
+    data:{labels:firms,datasets:[
+      {label:'企業用戶市場',data:ent,backgroundColor:NAVY,borderRadius:5},
+      {label:'桌上型市場',data:desk,backgroundColor:GOLD,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{padding:16,usePointStyle:true,color:NAVY}},
+        tooltip:{...tipCfg,callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y==null?'數量未明':c.parsed.y+'%')}}},
+      scales:{y:{...gridCfg,beginAtZero:true,ticks:{callback:v=>v+'%'}},
+        x:{...gridCfg,grid:{display:false},ticks:{color:NAVY,font:{weight:'500'}}}}}
+  });
+});
+
+/* ---- Chart 4: Peer Profitability (S5) ---- */
+whenVisible('chPeers',()=>{
+  const firms=['Seagate','Quantum','W. Digital','Maxtor'];
+  const ebitda=[1011,-61,-188,134];
+  const netinc=[503,-153,-493,31];
+  new Chart(document.getElementById('chPeers'),{
+    type:'bar',
+    data:{labels:firms,datasets:[
+      {label:'EBITDA',data:ebitda,backgroundColor:c=>ebitda[c.dataIndex]>=0?NAVY:'#9aa4b5',borderRadius:5},
+      {label:'淨利',data:netinc,backgroundColor:c=>netinc[c.dataIndex]>=0?GOLD:'#d8c9a0',borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{padding:16,usePointStyle:true,color:NAVY}},
+        tooltip:{...tipCfg,callbacks:{label:c=>c.dataset.label+': $'+c.parsed.y+'M'}}},
+      scales:{y:{...gridCfg,ticks:{callback:v=>'$'+v+'M'},grid:{color:c=>c.tick.value===0?NAVY:LINE,lineWidth:c=>c.tick.value===0?1.5:1}},
+        x:{...gridCfg,grid:{display:false},ticks:{color:NAVY,font:{weight:'500'}}}}}
+  });
+});
+
+/* ---- Chart 5: Rating Cliff (S8) ---- */
+whenVisible('chRating',()=>{
+  const r=['AAA','AA','A','BBB','BB','B'];
+  const rate=[7.01,7.14,7.31,7.72,9.18,10.44];
+  new Chart(document.getElementById('chRating'),{
+    type:'line',
+    data:{labels:r,datasets:[{label:'公司債長期利率',data:rate,
+      borderColor:NAVY,borderWidth:3,tension:.15,fill:true,
+      backgroundColor:(ctx)=>{const c=ctx.chart.ctx;const g=c.createLinearGradient(0,0,0,300);g.addColorStop(0,'rgba(244,183,2,.18)');g.addColorStop(1,'rgba(0,14,47,.02)');return g;},
+      pointRadius:r.map(x=>x==='BBB'?8:5),
+      pointBackgroundColor:r.map(x=>x==='BBB'?GOLD:NAVY),
+      pointBorderColor:r.map(x=>x==='BBB'?NAVY:'#fff'),pointBorderWidth:2,pointHoverRadius:9}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{...tipCfg,callbacks:{label:c=>'利率 '+c.parsed.y+'%'+(c.label==='BBB'?'  ← 目標門檻':'')}}},
+      scales:{y:{...gridCfg,ticks:{callback:v=>v+'%'},title:{display:true,text:'長期利率',color:MUTE}},
+        x:{...gridCfg,grid:{display:false},ticks:{color:NAVY,font:{size:14,weight:'600'}},title:{display:true,text:'投資級 ←　|　→ 投機級',color:MUTE,font:{size:11}}}}}
+  });
+});
+
+/* ---- Venn (S7) via D3 ---- */
+whenVisible('vennLBO',()=>{
+  const host=document.getElementById('vennLBO');
+  const W=Math.min(host.clientWidth,640),H=400;
+  const svg=d3.select(host).append('svg').attr('viewBox',`0 0 ${W} ${H}`).attr('width',W).attr('height',H);
+  const cx1=W*0.38,cx2=W*0.62,cy=H*0.46,rr=Math.min(W*0.26,135);
+  // circles
+  svg.append('circle').attr('cx',cx1).attr('cy',cy).attr('r',rr).attr('fill',NAVY).attr('fill-opacity',.82);
+  svg.append('circle').attr('cx',cx2).attr('cy',cy).attr('r',rr).attr('fill',GOLD).attr('fill-opacity',.72).style('mix-blend-mode','multiply');
+  // titles
+  svg.append('text').attr('x',cx1-rr*0.55).attr('y',cy-rr-14).attr('text-anchor','middle').attr('fill',NAVY).attr('font-weight','700').attr('font-size','15px').text('傳統 LBO 條件');
+  svg.append('text').attr('x',cx2+rr*0.55).attr('y',cy-rr-14).attr('text-anchor','middle').attr('fill','#a67c00').attr('font-weight','700').attr('font-size','15px').text('Seagate 特質');
+  const line=(x,y,t,fill,sz)=>svg.append('text').attr('x',x).attr('y',y).attr('text-anchor','middle').attr('fill',fill).attr('font-size',(sz||11.5)+'px').attr('font-weight','300').text(t);
+  // left-only (LBO wants, Seagate lacks)
+  line(cx1-rr*0.52,cy-18,'成熟穩定產業','#fff');
+  line(cx1-rr*0.52,cy+2,'現金流可預測','#fff');
+  line(cx1-rr*0.52,cy+22,'低研發需求','#fff');
+  line(cx1-rr*0.52,cy+42,'可承載高負債','#fff');
+  // right-only (Seagate has, atypical for LBO)
+  line(cx2+rr*0.52,cy-28,'產品週期極短','#3a2e00');
+  line(cx2+rr*0.52,cy-8,'高研發與資本支出','#3a2e00');
+  line(cx2+rr*0.52,cy+12,'獲利波動大','#3a2e00');
+  line(cx2+rr*0.52,cy+32,'垂直整合','#3a2e00');
+  // intersection
+  const mx=(cx1+cx2)/2;
+  line(mx,cy-24,'龍頭地位','#20303a',11);
+  line(mx,cy-6,'高進入門檻','#20303a',11);
+  line(mx,cy+12,'可觀規模','#20303a',11);
+  line(mx,cy+30,'穩定市佔','#20303a',11);
+  // intersection label below
+  svg.append('text').attr('x',mx).attr('y',H-16).attr('text-anchor','middle').attr('fill',NAVY).attr('font-weight','600').attr('font-size','12px').text('交集 = 成交關鍵');
+});
+
+/* ---- Gantt (S10) ---- */
+(function(){
+  const host=document.getElementById('ganttChart');
+  if(!host)return;
+  // 12 columns: May 1999 .. Apr 2000
+  const months=['5','6','7','8','9','10','11','12','1','2','3','4'];
+  const yr=['99','','','','','','','','00','','',''];
+  const tasks=[
+    {name:'出售 NSMG 予 VERITAS',start:0,len:1,type:'milestone',tip:'1999/5:換得約 1.55 億股 VERITAS,持股逾 40%。'},
+    {name:'VERITAS 股價飆漲逾 200%',start:1,len:6,type:'phase1',tip:'交易後六個月,VERITAS 大漲,Seagate 僅升 25%,價差浮現。'},
+    {name:'嘗試賣股 + 庫藏股',start:4,len:3,type:'phase2',tip:'常規手段:受制於協議與稅負,且買回無感,均告失效。'},
+    {name:'授權 Luczo 委任摩根史坦利',start:5,len:1,type:'milestone',tip:'1999/10 底:董事會授權,尋求股價提升方案。'},
+    {name:'Luczo 會晤 Silver Lake',start:6,len:1,type:'milestone',tip:'1999/11 初:摩根史坦利安排會議,啟動兩階段方案討論。'},
+    {name:'方案協商與盡職調查',start:6,len:5,type:'phase1',tip:'1999/11 至 2000/3:分析歷史績效、編製財務預測、設計資本結構。'},
+    {name:'收購 XIOtech（SAN）',start:8,len:1,type:'milestone',tip:'2000/1:正式跨足儲存網路市場。'},
+    {name:'協商持續、條件未定',start:10,len:2,type:'phase2',tip:'2000/3:交易極為複雜,能否談成各方接受的條件仍無保證。'}
+  ];
+  // build tooltip element
+  const tip=document.createElement('div');tip.className='gantt-tip';document.body.appendChild(tip);
+  let html='<div class="gantt-scale"><div class="lbl-col">工作項目 / 月份</div>';
+  months.forEach((m,i)=>{html+=`<div class="mo">${yr[i]?"'"+yr[i]+" ":""}${m}月</div>`;});
+  html+='</div>';
+  tasks.forEach(t=>{
+    const leftPct=(t.start/12)*100, widPct=(t.len/12)*100;
+    const cls=t.type;
+    const showLabel=t.len>=2?`<span class="bl">${t.type==='milestone'?'◆':''}</span>`:'';
+    html+=`<div class="gantt-row"><div class="task">${t.name}</div>
+      <div class="gantt-track"><div class="gantt-bar ${cls}" style="left:${leftPct}%;width:calc(${widPct}% - 4px)" data-tip="${t.tip}" data-name="${t.name}">${showLabel}</div></div></div>`;
+  });
+  host.innerHTML=html;
+  host.querySelectorAll('.gantt-bar').forEach(bar=>{
+    bar.addEventListener('mouseenter',e=>{
+      tip.innerHTML=`<div class="tp-t">${bar.dataset.name}</div>${bar.dataset.tip}`;
+      tip.style.opacity='1';
+    });
+    bar.addEventListener('mousemove',e=>{
+      tip.style.left=Math.min(e.clientX+14,window.innerWidth-250)+'px';
+      tip.style.top=(e.clientY+14)+'px';
+    });
+    bar.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+})();
+</script>
+</body>
+</html>
